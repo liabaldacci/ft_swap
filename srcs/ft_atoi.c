@@ -6,17 +6,23 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:05:15 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/05/28 17:56:27 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/01 20:53:39 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int		ft_atoi(const char *str)
+void		atoi_error(void)
 {
-	int	i;
-	int	nbr;
-	int	negative;
+	write(1, "Error.\n", 7);
+	exit(0);
+}
+
+long		ft_atoi(const char *str)
+{
+	int		i;
+	long	nbr;
+	int		negative;
 
 	nbr = 0;
 	negative = 1;
@@ -35,5 +41,7 @@ int		ft_atoi(const char *str)
 		nbr += str[i] - '0';
 		i++;
 	}
+	if (nbr > 2147483647 || nbr < -2147483648)
+		atoi_error();
 	return (nbr * negative);
 }

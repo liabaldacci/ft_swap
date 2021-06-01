@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/31 21:14:04 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/01 20:52:08 by gadoglio         ###   ########.fr       */
+/*   Created: 2021/06/01 19:45:25 by gadoglio          #+#    #+#             */
+/*   Updated: 2021/06/01 20:17:31 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int	init(t_stack *a, t_stack *b, int argc)
+int	error(t_stack *a, t_stack *b)
 {
-	a->stack = NULL;
-	a->len = 0;
-	b->stack = NULL;
-	b->len = 0;
-	if (argc <= 1) //no numbers
-		return (-1);
-	a->stack = (int *) malloc((argc - 1) * sizeof(int));
-	a->len = argc - 1;
+	write(1, "Error.\n", 7);
+	if (a->stack)
+		free(a->stack);
+	if (b->stack)
+		free(b->stack);
 	return (0);
 }

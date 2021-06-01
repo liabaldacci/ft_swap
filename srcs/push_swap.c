@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 17:30:48 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/05/31 21:32:33 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/01 20:54:13 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,28 @@ int		arg_to_stack(int argc, char *argv[], t_stack *a)
 		if (is_valid_number(argv[i]) == 0)
 			return (-1);
 		a->stack[j] = ft_atoi(argv[i]);
+		if (!a->stack[j])
+			return (-1);
 		i--;
 		j++;
 	}
 	a->len = j;
 	return (0);	
+}
+
+int		check_args(int argc, char *argv[])
+{
+	int	i;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (is_valid_number(argv[i]) == 0)
+			return (-1);
+		ft_atoi(argv[i]);
+		i--;
+	}
+	return (0);
 }
 
 void	print_stack(t_stack *stack)
@@ -61,14 +78,22 @@ int     main(int argc, char **argv)
 	t_stack	a;
 	t_stack b;
 
-	if (argc <= 1) //no numbers
-		return (0);
-	init(&a);
-	init(&b);
-	a.stack = (int *) malloc((argc - 1) * sizeof(int));
-	b.stack = (int *) malloc((1) * sizeof(int));
-	a.len = argc - 1;
-	arg_to_stack(argc, argv, &a);
+	if (init(&a, &b, argc) == -1)
+		return (error(&a, &b));
+	check_args(argc, argv);
+	if (arg_to_stack(argc, argv, &a) == -1)
+		return (error(&a, &b));
+	sx(&a);
+	sx(&a);
+	sx(&a);
+	print_stack(&a);
+	rx(&a);
+	print_stack(&a);
+	px(&a, &b); //pb
+	printf("STACK A:\n");
+	print_stack(&a);
+	printf("STACK B:\n");
+	print_stack(&b);
 	free(a.stack);
 	free(b.stack);
 	printf("Started.");
