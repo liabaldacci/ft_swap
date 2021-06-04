@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 21:24:09 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/01 20:45:03 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/04 20:41:56 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct  s_stack
 {
     int			len;
 	int			*stack;
+	int			id; // 1 pra a, 2 pra b
 }               t_stack;
 
 int     main(int argc, char **argv);
@@ -37,6 +38,7 @@ void	rr(t_stack *one, t_stack *two);
 void	rrx(t_stack *s);
 void	rrr(t_stack *one, t_stack *two);
 int	error(t_stack *a, t_stack *b);
+int	sort(t_stack *a, t_stack *b);
 
 
 

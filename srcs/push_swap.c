@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 17:30:48 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/01 20:54:13 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/04 20:51:01 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,21 @@ int     main(int argc, char **argv)
 	check_args(argc, argv);
 	if (arg_to_stack(argc, argv, &a) == -1)
 		return (error(&a, &b));
-	sx(&a);
-	sx(&a);
-	sx(&a);
+
+	printf("STACK A BEFORE:\n");
 	print_stack(&a);
-	rx(&a);
-	print_stack(&a);
-	px(&a, &b); //pb
-	printf("STACK A:\n");
-	print_stack(&a);
-	printf("STACK B:\n");
+	printf("STACK B BEFORE:\n");
 	print_stack(&b);
+
+	printf("\nOPERATIONS:\n");
+	sort(&a, &b);
+
+	printf("\nSTACK A AFTER:\n");
+	print_stack(&a);
+	printf("STACK B AFTER:\n");
+	print_stack(&b);
+
 	free(a.stack);
 	free(b.stack);
-	printf("Started.");
 	return (0);
 }
