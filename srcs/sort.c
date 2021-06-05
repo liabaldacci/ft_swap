@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:11:20 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/04 20:43:27 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/04 21:51:22 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,44 @@ int	sort_three(t_stack *a)
 	return (0);
 }
 
+int	sort_five(t_stack *a, t_stack *b)
+{
+
+	//SORT THREE TA ERRADO PRA CASO 5 2 1 4 3 (n precisa sorting)
+	px(a, b);
+	px(a, b);
+	sort_three(a);
+	if (b->stack[0] > a->stack[2])
+	{
+		px(b, a);
+		rx(a);
+	}
+	else if (b->stack[0] > a->stack[2])
+	{
+		rrx(a);
+		if (b->stack[1] > a->stack[1])
+		{
+			if (b->stack[0] < b->stack[1])
+				sx(a);
+			px(a, b);
+			px(a, b);
+			rrx(a);
+			rrx(a);
+		}
+		px(b, a);
+		rx(a);
+		rx(a);
+	}
+	else if (b->stack[0] > a->stack[0])
+	{
+		px(b, a);
+		sx(a);
+	}
+	else
+		px(b, a);
+	return (0);
+}
+
 int	sort(t_stack *a, t_stack *b)
 {
 	if (a->len == 1)
@@ -55,9 +93,8 @@ int	sort(t_stack *a, t_stack *b)
 		return (sort_two(a));
 	else if (a->len == 3)
 		return (sort_three(a));
+	else if (a->len == 5)
+		return (sort_five(a, b));
 	else
-	{
-		b->id = 2;
 		return (0);
-	}
 }
