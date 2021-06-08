@@ -3,7 +3,7 @@ NAME =		push_swap
 SRC_DIR = 	srcs
 OBJS_DIR =	objs
 
-CC =		clang -g -fsanitize=address
+CC =		clang -g
 FLAGS_CC =	-Wall -Wextra -Werror -I ./$(NAME).h
 
 SRCS =		$(SRC_DIR)/push_swap.c $(SRC_DIR)/ft_isdigit.c $(SRC_DIR)/ft_atoi.c \

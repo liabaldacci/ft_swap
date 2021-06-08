@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:11:20 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/07 22:56:14 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/09 01:34:28 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	sort_five(t_stack *a, t_stack *b)
 			rrx(a);
 			return (0);
 		}
+		rrx(a);
 		px(b, a);
 		rx(a);
 		rx(a);
@@ -103,14 +104,33 @@ int	sort_five(t_stack *a, t_stack *b)
 	}
 	if (b->stack && b->stack[0] > a->stack[0])
 	{
-		px(b, a);
-		sx(a);
+		if (b->stack && b->stack[0] > a->stack[3])
+		{
+			px(b, a);
+			rx(a);
+		}
+		else if (b->stack && b->stack[0] > a->stack[2])
+		{
+			rrx(a);
+			px(b, a);
+			rx(a);
+			rx(a);
+		}
+		else if (b->stack && b->stack[0] > a->stack[1])
+		{
+			rx(a);
+			px(b, a);
+			sx(a);
+			rrx(a);
+		}
+		else
+		{
+			px(b, a);
+			sx(a);
+		}
 	}
 	else
-	{
 		px(b, a);
-		px(b, a);
-	}
 	return (0);
 }
 

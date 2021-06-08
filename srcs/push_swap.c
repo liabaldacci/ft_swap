@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 17:30:48 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/07 22:42:40 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/09 01:29:01 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,24 +76,26 @@ int     main(int argc, char **argv)
 	t_stack	a;
 	t_stack b;
 
+	// printf("ARGC %i\n", argc);
+	// printf("ARGV %s\n", argv[1]);
 	if (init(&a, &b, argc) == -1)
 		return (error(&a, &b));
 	check_args(argc, argv);
 	if (arg_to_stack(argc, argv, &a) == -1)
 		return (error(&a, &b));
 	//TODO: NÃO PERMITIR DUPLICADOS
-	printf("STACK A BEFORE:\n");
-	print_stack(&a);
-	printf("STACK B BEFORE:\n");
-	print_stack(&b);
+	// printf("STACK A BEFORE:\n");
+	// print_stack(&a);
+	// printf("STACK B BEFORE:\n");
+	// print_stack(&b);
 
-	printf("\nOPERATIONS:\n");
+	// printf("\nOPERATIONS:\n");
 	sort(&a, &b);
 
 	printf("\nSTACK A AFTER:\n");
 	print_stack(&a);
-	printf("STACK B AFTER:\n");
-	print_stack(&b);
+	// printf("STACK B AFTER:\n");
+	// print_stack(&b);
 
 	free(a.stack);
 	free(b.stack);
