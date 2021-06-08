@@ -6,7 +6,7 @@
 /*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:11:20 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/09 01:46:10 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/09 01:54:22 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int	sort_five(t_stack *a, t_stack *b)
 			px(b, a);
 			sx(a);
 			px(b, a);
+			if (a->stack[0] > a->stack[1])
+				rx(a);
 			return (0);
 		}
 	}
