@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 17:30:48 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/04 20:51:01 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/07 22:42:40 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int		arg_to_stack(int argc, char *argv[], t_stack *a)
 		if (is_valid_number(argv[i]) == 0)
 			return (-1);
 		a->stack[j] = ft_atoi(argv[i]);
-		if (!a->stack[j])
-			return (-1);
 		i--;
 		j++;
 	}
@@ -83,7 +81,7 @@ int     main(int argc, char **argv)
 	check_args(argc, argv);
 	if (arg_to_stack(argc, argv, &a) == -1)
 		return (error(&a, &b));
-
+	//TODO: NÃO PERMITIR DUPLICADOS
 	printf("STACK A BEFORE:\n");
 	print_stack(&a);
 	printf("STACK B BEFORE:\n");

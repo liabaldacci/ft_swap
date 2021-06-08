@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:11:20 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/04 21:51:22 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/07 22:56:14 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,18 @@ int	sort_three(t_stack *a)
 				rrx(a);
 		}
 	}
-	else
+	else if (a->stack[0] > a->stack[2])
+		rrx(a);
+	else if (a->stack[1] > a->stack[2])
 	{
-		if (a->stack[0] > a->stack[2])
-			rrx(a);
-		else
-		{
-			sx(a);
-			rx(a);
-		}
+		sx(a);
+		rx(a);
 	}
 	return (0);
 }
 
 int	sort_five(t_stack *a, t_stack *b)
 {
-
-	//SORT THREE TA ERRADO PRA CASO 5 2 1 4 3 (n precisa sorting)
 	px(a, b);
 	px(a, b);
 	sort_three(a);
@@ -59,17 +54,28 @@ int	sort_five(t_stack *a, t_stack *b)
 		px(b, a);
 		rx(a);
 	}
-	else if (b->stack[0] > a->stack[2])
+	else if (b->stack[0] > a->stack[1])
 	{
-		rrx(a);
-		if (b->stack[1] > a->stack[1])
+		if (b->stack[1] > a->stack[2])
 		{
+			sx(b);
+			px(b, a);
+			rrx(a);
+			px(b, a);
+			rrx(a);
+			rrx(a);
+			return (0);
+		}
+		else if (b->stack[1] && (b->stack[1] > a->stack[2]))
+		{
+			rrx(a);
 			if (b->stack[0] < b->stack[1])
-				sx(a);
-			px(a, b);
-			px(a, b);
+				sx(b);
+			px(b, a);
+			px(b, a);
 			rrx(a);
 			rrx(a);
+			return (0);
 		}
 		px(b, a);
 		rx(a);
@@ -77,11 +83,34 @@ int	sort_five(t_stack *a, t_stack *b)
 	}
 	else if (b->stack[0] > a->stack[0])
 	{
+		if (b->stack[1] < a->stack[1] && b->stack[1] > a->stack[0])
+		{
+			if (b->stack[0] < b->stack[1])
+				sx(b);
+			rx(a);
+			px(b, a);
+			px(b, a);
+			rrx(a);
+			return (0);
+		}
+		else
+		{
+			px(b, a);
+			sx(a);
+			px(b, a);
+			return (0);
+		}
+	}
+	if (b->stack && b->stack[0] > a->stack[0])
+	{
 		px(b, a);
 		sx(a);
 	}
 	else
+	{
 		px(b, a);
+		px(b, a);
+	}
 	return (0);
 }
 

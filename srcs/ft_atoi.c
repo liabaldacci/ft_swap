@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:05:15 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/01 20:53:39 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/07 22:25:09 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		atoi_error(void)
 {
-	write(1, "Error.\n", 7);
+	write(2, "Error.\n", 7);
 	exit(0);
 }
 
