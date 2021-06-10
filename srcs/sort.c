@@ -6,7 +6,7 @@
 /*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:11:20 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/09 01:54:22 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/10 23:08:15 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,92 +49,183 @@ int	sort_five(t_stack *a, t_stack *b)
 	px(a, b);
 	px(a, b);
 	sort_three(a);
-	if (b->stack[0] > a->stack[2])
+	if (b->stack[0] < a->stack[0] || b->stack[1] < a->stack[0])
 	{
-		px(b, a);
-		rx(a);
-	}
-	else if (b->stack[0] > a->stack[1])
-	{
-		if (b->stack[1] > a->stack[2])
+		if (b->stack[1] < a->stack[0] || b->stack[1] < a->stack[1])
 		{
-			sx(b);
-			px(b, a);
-			rrx(a);
-			px(b, a);
-			rrx(a);
-			rrx(a);
-			return (0);
-		}
-		else if (b->stack[1] && (b->stack[1] > a->stack[2]))
-		{
-			rrx(a);
 			if (b->stack[0] < b->stack[1])
 				sx(b);
 			px(b, a);
+			if (b->stack[0] < a->stack[0])
+				sx(a);
+			px(b, a);
+		}
+		else
+		{
+			if (b->stack[0] > b->stack[1])
+				sx(b);
+			px(b, a);
+			if (b->stack[0] < a->stack[3])
+				rrx(a);
+			px(b, a);
+			rx(a);
+			if (a->stack[0] > a->stack[4])
+				rx(a);
+		}
+	}
+	else if (b->stack[0] < a->stack[1] || b->stack[1] < a->stack[1])
+	{
+		if (b->stack[0] < a->stack[1] && b->stack[1] < b->stack[1] && b->stack[0] < b->stack[1])
+			sx(b);
+		if ((b->stack[0] > a->stack[1] || b->stack[1] > a->stack[1]) && (b->stack[0] > b->stack[1]))
+			sx(b);
+		px(b, a);
+		sx(a);
+		if (b->stack[0] < a->stack[1])
+		{
+			px(b, a);
+			sx(a);
+		}
+		else if (b->stack[0] > a->stack[2] && b->stack[0] < a->stack[3])
+		{
+			rrx(a);
+			px(b, a);
+			rx(a);
+			rx(a);
+		}
+		else
+		{
+			px(b, a);
+			rx(a);
+		}
+	}
+	else if (b->stack[0] < a->stack[2] || b->stack[1] < a->stack[2])
+	{
+		if (b->stack[0] < b->stack[1])
+			sx(b);
+		if (b->stack[0] > a->stack[2])
+		{
 			px(b, a);
 			rrx(a);
+			px(b, a);
+		}
+		else
+		{
 			rrx(a);
-			return (0);
+			px(b, a);
+			px(b, a);
 		}
 		rrx(a);
-		px(b, a);
-		rx(a);
-		rx(a);
-	}
-	else if (b->stack[0] > a->stack[0])
-	{
-		if (b->stack[1] < a->stack[1] && b->stack[1] > a->stack[0])
-		{
-			if (b->stack[0] < b->stack[1])
-				sx(b);
-			rx(a);
-			px(b, a);
-			px(b, a);
-			rrx(a);
-			return (0);
-		}
-		else
-		{
-			px(b, a);
-			sx(a);
-			px(b, a);
-			if (a->stack[0] > a->stack[1])
-				rx(a);
-			return (0);
-		}
+		rrx(a);
 	}
 	else
-		px(b, a);
-	if (b->stack && b->stack[0] > a->stack[0])
 	{
-		if (b->stack && b->stack[0] > a->stack[3])
-		{
-			px(b, a);
-			rx(a);
-		}
-		else if (b->stack && b->stack[0] > a->stack[2])
-		{
-			rrx(a);
-			px(b, a);
-			rx(a);
-			rx(a);
-		}
-		else if (b->stack && b->stack[0] > a->stack[1])
-		{
-			rx(a);
-			px(b, a);
-			sx(a);
-			rrx(a);
-		}
-		else
-		{
-			px(b, a);
-			sx(a);
-		}
-	}
-	else
+		if (b->stack[0] > b->stack[1])
+			sx(b);
 		px(b, a);
+		rx(a);
+		px(b, a);
+		rx(a);
+	
+	}
+	// if (b->stack[0] > a->stack[2])
+	// {
+	// 	px(b, a);
+	// 	rx(a);
+	// }
+	// else if (b->stack[0] > a->stack[1])
+	// {
+	// 	if (b->stack[1] > a->stack[2])
+	// 	{
+	// 		sx(b);
+	// 		px(b, a);
+	// 		rrx(a);
+	// 		px(b, a);
+	// 		rrx(a);
+	// 		rrx(a);
+	// 		return (0);
+	// 	}
+	// 	else if (b->stack[1] && (b->stack[1] > a->stack[2]))
+	// 	{
+	// 		rrx(a);
+	// 		if (b->stack[0] < b->stack[1])
+	// 			sx(b);
+	// 		px(b, a);
+	// 		px(b, a);
+	// 		rrx(a);
+	// 		rrx(a);
+	// 		return (0);
+	// 	}
+	// 	rrx(a);
+	// 	px(b, a);
+	// 	rx(a);
+	// 	rx(a);
+	// }
+	// else if (b->stack[0] > a->stack[0])
+	// {
+	// 	if (b->stack[1] < a->stack[1] && b->stack[1] > a->stack[0])
+	// 	{
+	// 		if (b->stack[0] < b->stack[1])
+	// 			sx(b);
+	// 		rx(a);
+	// 		px(b, a);
+	// 		px(b, a);
+	// 		rrx(a);
+	// 		return (0);
+	// 	}
+	// 	if (b->stack[1] < a->stack[2] && b->stack[1] > a->stack[1])
+	// 	{
+	// 		rx(a);
+	// 		px(b, a);
+	// 		rrx(a);
+	// 		rrx(a);
+	// 		px(b, a);
+	// 		rx(a);
+	// 		rx(a);
+
+
+	// 	}
+	// 	else
+	// 	{
+	// 		px(b, a);
+	// 		sx(a);
+	// 		px(b, a);
+	// 		if (a->stack[0] > a->stack[1])
+	// 			rx(a);
+	// 		return (0);
+	// 	}
+	// }
+	// else
+	// 	px(b, a);
+	// if (b->stack && b->stack[0] > a->stack[0])
+	// {
+	// 	if (b->stack && b->stack[0] > a->stack[3])
+	// 	{
+	// 		px(b, a);
+	// 		rx(a);
+	// 	}
+	// 	else if (b->stack && b->stack[0] > a->stack[2])
+	// 	{
+	// 		rrx(a);
+	// 		px(b, a);
+	// 		rx(a);
+	// 		rx(a);
+	// 	}
+	// 	else if (b->stack && b->stack[0] > a->stack[1])
+	// 	{
+	// 		rx(a);
+	// 		px(b, a);
+	// 		sx(a);
+	// 		rrx(a);
+	// 	}
+	// 	else
+	// 	{
+	// 		px(b, a);
+	// 		sx(a);
+	// 	}
+	// }
+	// else
+	// 	px(b, a);
 	return (0);
 }
 
