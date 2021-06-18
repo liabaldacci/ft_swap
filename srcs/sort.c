@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:11:20 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/11 00:33:10 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/17 19:36:56 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	sort(t_stack *a, t_stack *b)
 		return (sort_three(a));
 	else if (a->len == 5)
 		return (sort_five(a, b));
+	else if (a->len <= 500)
+		return (sort_large(a, b));
 	else
 		return (0);
 }

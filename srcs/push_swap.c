@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 17:30:48 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/09 01:29:01 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/10 19:13:20 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ int     main(int argc, char **argv)
 	// printf("\nOPERATIONS:\n");
 	sort(&a, &b);
 
-	printf("\nSTACK A AFTER:\n");
-	print_stack(&a);
+	// printf("\nSTACK A AFTER:\n");
+	// print_stack(&a);
 	// printf("STACK B AFTER:\n");
 	// print_stack(&b);
 
