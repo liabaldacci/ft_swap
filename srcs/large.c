@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 19:36:44 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/17 20:37:01 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/18 21:48:21 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int		decide_chunks(int len)
 	else if (len < 50)
 		return (4);
 	else if (len < 100)
-		return (6);
-	else if (len < 250)
 		return (8);
-	else if (len < 500)
+	else if (len < 250)
 		return (10);
-	else
+	else if (len < 500)
 		return (12);
+	else
+		return (15);
 }
 
 int		find_min(t_stack *stack)
@@ -50,7 +50,7 @@ int		find_min_idx(t_stack *stack)
 	int	min_idx;
 
 	i = 0;
-	min_idx = stack->stack[0];
+	min_idx = 0;
 	while (i < stack->len)
 	{
 		if (stack->stack[i] < stack->stack[min_idx])
@@ -76,6 +76,22 @@ int		find_max(t_stack *stack)
 	return (max);
 }
 
+int		find_max_idx(t_stack *stack)
+{
+	int	i;
+	int	max_idx;
+
+	i = 0;
+	max_idx = 0;
+	while (i < stack->len)
+	{
+		if (stack->stack[i] > stack->stack[max_idx])
+			max_idx = i;
+		i++;
+	}
+	return (max_idx);
+}
+
 int		find_threshold(t_stack *a, int chunks)
 {
 	int	min;
@@ -84,7 +100,7 @@ int		find_threshold(t_stack *a, int chunks)
 
 	min = find_min(a);
 	max = find_max(a);
-	thresh = (max - min) / chunks;
+	thresh = ((max - min) / chunks) + 1;
 	return (thresh);	
 }
 
@@ -105,7 +121,7 @@ void	send_chunk(t_stack *a, t_stack *b, int thresh)
 	}
 }
 
-void	split_chunks(t_stack *a, t_stack *b, int chunks)
+int		split_chunks(t_stack *a, t_stack *b, int chunks)
 {
 	int	i;
 	int	thresh;
@@ -114,10 +130,10 @@ void	split_chunks(t_stack *a, t_stack *b, int chunks)
 	thresh = find_threshold(a, chunks);
 	while (i < chunks) //leave out last chunk
 	{
-		thresh = thresh * i;
-		send_chunk(a, b, thresh);
+		send_chunk(a, b, thresh * i);
 		i++;
 	}
+	return (thresh);
 }
 
 void	send_smallest(t_stack *a, t_stack *b)
@@ -138,7 +154,7 @@ void	send_smallest(t_stack *a, t_stack *b)
 	}
 	else
 	{
-		while (i <= a->len - min)
+		while (i < a->len - min)
 		{
 			rrx(a);
 			i++;
@@ -153,6 +169,7 @@ void	sort_last_chunk(t_stack *a, t_stack *b)
 	int	i;
 
 	len = a->len;
+	i = 0;
 	while (i < len - 1)
 	{
 		send_smallest(a, b);
@@ -162,12 +179,73 @@ void	sort_last_chunk(t_stack *a, t_stack *b)
 		px(b, a);
 }
 
+void	return_single_chunk(t_stack *a, t_stack *b, int min)
+{
+	int	j;
+	int	max_idx;
+	int	rb_num;
+
+	rb_num = 0;
+	while (b->stack[0] > min | b->stack[b->len - 1] > min)
+	{
+		max_idx = find_max_idx(b); //find index of largest number
+		// if (b->stack[max_idx] > min) //check if the largest number falls within the last chunk
+		// {
+		if (max_idx == 1) //if the largest number is on the second position do SB instead of RB
+			sx(b);
+		else if (max_idx >= (b->len - rb_num - 1)) 
+		//if the largest number is one of the last in the stack after doing RB
+		{
+			j = 0;
+			while (j < (b->len - max_idx)) //DO enough RRBs to send the largest number back to the first position
+			{
+				rrx(b);
+				rb_num--; //number of times RB was used is decreased
+				j++;
+			}
+		}
+		else
+		// if the largest number is not in the second position nor in the end of the stack,
+		//	do RB until it is in the first position
+		{
+			j = 0;
+			while (j < max_idx)
+			{
+				rx(b);
+				rb_num++;
+				j++;
+			}
+		}
+		//after all that the largest number is in the first position so now just needs to be sent ot stack A
+		px(b, a);
+		// }
+		// else //if the largest number belongs to a different chunk, break the while loop
+		// 	break;		
+	}
+}
+
+void	return_all_chunks(t_stack *a, t_stack *b, int chunks, int thresh)
+{
+	int	i;
+	int	num_RB;
+
+	i = chunks - 1;
+	num_RB = 0;
+	while (i > 0)
+	{
+		return_single_chunk(a, b, (thresh * (i - 1)));
+		i--;
+	}	
+}
+
 int		sort_large(t_stack *a, t_stack *b)
 {
 	int	chunks;
+	int	thresh;
 
 	chunks = decide_chunks(a->len);
-	split_chunks(a, b, chunks);
+	thresh = split_chunks(a, b, chunks);
 	sort_last_chunk(a, b);
-	//TODO: Return chunk by chunk to stack A
+	return_all_chunks(a, b, chunks, thresh);
+	return (0);
 }

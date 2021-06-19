@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 21:24:09 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/04 20:41:56 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/18 19:06:39 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ void	rrx(t_stack *s);
 void	rrr(t_stack *one, t_stack *two);
 int	error(t_stack *a, t_stack *b);
 int	sort(t_stack *a, t_stack *b);
+int		sort_large(t_stack *a, t_stack *b);
+int	sort_five(t_stack *a, t_stack *b);
+int	sort_three(t_stack *a);
+
 
 
 

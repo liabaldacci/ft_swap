@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_five.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 00:32:21 by nfranco-          #+#    #+#             */
-/*   Updated: 2021/06/11 00:35:48 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/18 19:08:04 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_one_on_snd_pos(t_stack *a, t_stack *b)
 	}
 }
 
-void	ft_one_trd_pos(t_stack *a, t_stack *b)
+void	ft_one_on_trd_pos(t_stack *a, t_stack *b)
 {
 	if (b->stack[0] < b->stack[1])
 		sx(b);

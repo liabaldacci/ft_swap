@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 20:47:52 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/10 19:15:47 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/18 22:06:43 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	px(t_stack *src, t_stack *dst)
 	}
 	free(dst->stack);
 	free(src->stack);
+	dst->stack = NULL;
+	src->stack = NULL;
 	src->stack = src_temp;
 	dst->stack = dst_temp;
 	src->len--;

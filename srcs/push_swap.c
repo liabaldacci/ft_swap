@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 17:30:48 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/10 19:13:20 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/18 21:38:37 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,16 @@ int		is_valid_number(char *s)
 int		arg_to_stack(int argc, char *argv[], t_stack *a)
 {
 	int i;
-	int j;
 
-	i = argc - 1;
-	j = 0;
-	while (j < argc - 1)
+	i = 0;
+	while (i < argc - 1)
 	{
-		if (is_valid_number(argv[i]) == 0)
+		if (is_valid_number(argv[i + 1]) == 0)
 			return (-1);
-		a->stack[j] = ft_atoi(argv[i]);
-		i--;
-		j++;
+		a->stack[i] = ft_atoi(argv[i + 1]);
+		i++;
 	}
-	a->len = j;
+	a->len = i;
 	return (0);	
 }
 
@@ -66,6 +63,7 @@ void	print_stack(t_stack *stack)
 	while (i < stack->len)
 	{
 		printf("number: %i.\n", stack->stack[i]);
+		fflush(stdout);
 		i++;
 	}
 	printf("\n");
