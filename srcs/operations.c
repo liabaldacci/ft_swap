@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 20:47:52 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/18 22:06:43 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/22 20:55:28 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ void	px(t_stack *src, t_stack *dst)
 	
 	if (src->len == 0)
 		return ;
-	src_temp = (int *) malloc((src->len - 1) * sizeof(int));
-	dst_temp = (int *) malloc((dst->len + 1) * sizeof(int));
+	src_temp = NULL;
+	dst_temp = NULL;
+	src_temp = (int *) calloc((src->len - 1), sizeof(int));
+	dst_temp = (int *) calloc((dst->len + 1), sizeof(int));
 	dst_temp[0] = src->stack[0];
 	i = 1;
 	while (i <= dst->len)

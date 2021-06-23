@@ -6,11 +6,19 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 19:36:44 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/18 21:48:21 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/22 20:55:47 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+
+int		ft_abs(int i)
+{
+	if (i > 0)
+		return (i);
+	else
+		return (i * -1);
+}
 
 int		decide_chunks(int len)
 {
@@ -100,7 +108,10 @@ int		find_threshold(t_stack *a, int chunks)
 
 	min = find_min(a);
 	max = find_max(a);
-	thresh = ((max - min) / chunks) + 1;
+	if (min < 0 && max > 0)
+		thresh = (max - ((max - min) / chunks) + 1);
+	else
+		thresh = ((max - min) / chunks) + 1;
 	return (thresh);	
 }
 
@@ -125,12 +136,15 @@ int		split_chunks(t_stack *a, t_stack *b, int chunks)
 {
 	int	i;
 	int	thresh;
+	int	thresh_chunk;
 
 	i = 1;
 	thresh = find_threshold(a, chunks);
+	thresh_chunk = thresh;
 	while (i < chunks) //leave out last chunk
 	{
-		send_chunk(a, b, thresh * i);
+		send_chunk(a, b, thresh_chunk);
+		thresh_chunk = thresh_chunk + ft_abs(thresh);
 		i++;
 	}
 	return (thresh);
@@ -179,7 +193,7 @@ void	sort_last_chunk(t_stack *a, t_stack *b)
 		px(b, a);
 }
 
-void	return_single_chunk(t_stack *a, t_stack *b, int min)
+void	single_chunk_positive(t_stack *a, t_stack *b, int min)
 {
 	int	j;
 	int	max_idx;
@@ -189,8 +203,46 @@ void	return_single_chunk(t_stack *a, t_stack *b, int min)
 	while (b->stack[0] > min | b->stack[b->len - 1] > min)
 	{
 		max_idx = find_max_idx(b); //find index of largest number
-		// if (b->stack[max_idx] > min) //check if the largest number falls within the last chunk
-		// {
+		if (max_idx == 1) //if the largest number is on the second position do SB instead of RB
+			sx(b);
+		else if (max_idx >= (b->len - rb_num - 1))
+		//if the largest number is one of the last in the stack after doing RB
+		{
+			j = 0;
+			while (j < (b->len - max_idx)) //DO enough RRBs to send the largest number back to the first position
+			{
+				rrx(b);
+				rb_num--; //number of times RB was used is decreased
+				j++;
+			}
+		}
+		else
+		// if the largest number is not in the second position nor in the end of the stack,
+		//	do RB until it is in the first position
+		{
+			j = 0;
+			while (j < max_idx)
+			{
+				rx(b);
+				rb_num++;
+				j++;
+			}
+		}
+		//after all that the largest number is in the first position so now just needs to be sent ot stack A
+		px(b, a);
+	}
+}
+
+void	single_chunk_negative(t_stack *a, t_stack *b, int min)
+{
+	int	j;
+	int	max_idx;
+	int	rb_num;
+
+	rb_num = 0;
+	while (b->stack[0] < min | b->stack[b->len - 1] < min)
+	{
+		max_idx = find_max_idx(b); //find index of largest number
 		if (max_idx == 1) //if the largest number is on the second position do SB instead of RB
 			sx(b);
 		else if (max_idx >= (b->len - rb_num - 1)) 
@@ -218,22 +270,69 @@ void	return_single_chunk(t_stack *a, t_stack *b, int min)
 		}
 		//after all that the largest number is in the first position so now just needs to be sent ot stack A
 		px(b, a);
-		// }
-		// else //if the largest number belongs to a different chunk, break the while loop
-		// 	break;		
 	}
+}
+
+void	return_single_chunk(t_stack *a, t_stack *b, int min)
+{
+	// int	j;
+	// int	max_idx;
+	int	rb_num;
+
+	rb_num = 0;
+	if (min >= 0)
+		single_chunk_positive(a, b, min);
+	else
+		single_chunk_negative(a, b, min);
+	// while (b->stack[0] > min | b->stack[b->len - 1] > min)
+	// {
+	// 	max_idx = find_max_idx(b); //find index of largest number
+	// 	if (max_idx == 1) //if the largest number is on the second position do SB instead of RB
+	// 		sx(b);
+	// 	else if (max_idx >= (b->len - rb_num - 1)) 
+	// 	//if the largest number is one of the last in the stack after doing RB
+	// 	{
+	// 		j = 0;
+	// 		while (j < (b->len - max_idx)) //DO enough RRBs to send the largest number back to the first position
+	// 		{
+	// 			rrx(b);
+	// 			rb_num--; //number of times RB was used is decreased
+	// 			j++;
+	// 		}
+	// 	}
+	// 	else
+	// 	// if the largest number is not in the second position nor in the end of the stack,
+	// 	//	do RB until it is in the first position
+	// 	{
+	// 		j = 0;
+	// 		while (j < max_idx)
+	// 		{
+	// 			rx(b);
+	// 			rb_num++;
+	// 			j++;
+	// 		}
+	// 	}
+	// 	//after all that the largest number is in the first position so now just needs to be sent ot stack A
+	// 	px(b, a);
+	// }
 }
 
 void	return_all_chunks(t_stack *a, t_stack *b, int chunks, int thresh)
 {
 	int	i;
 	int	num_RB;
+	int	thresh_chunk;
 
 	i = chunks - 1;
 	num_RB = 0;
+	if (thresh < 0)
+		thresh_chunk = thresh + ft_abs(thresh * i);
+	else
+		thresh_chunk = ft_abs(thresh * i);
 	while (i > 0)
 	{
-		return_single_chunk(a, b, (thresh * (i - 1)));
+		thresh_chunk = thresh_chunk - ft_abs(thresh);
+		return_single_chunk(a, b, thresh_chunk);
 		i--;
 	}	
 }

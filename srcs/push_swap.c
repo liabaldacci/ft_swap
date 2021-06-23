@@ -6,7 +6,7 @@
 /*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 17:30:48 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/18 21:38:37 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/22 19:17:59 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int     main(int argc, char **argv)
 	// printf("\nOPERATIONS:\n");
 	sort(&a, &b);
 
-	// printf("\nSTACK A AFTER:\n");
-	// print_stack(&a);
+	printf("\nSTACK A AFTER:\n");
+	print_stack(&a);
 	// printf("STACK B AFTER:\n");
 	// print_stack(&b);
 
