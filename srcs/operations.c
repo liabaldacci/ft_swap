@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 20:47:52 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/22 20:55:28 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/25 00:23:27 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	px(t_stack *src, t_stack *dst)
 		return ;
 	src_temp = NULL;
 	dst_temp = NULL;
-	src_temp = (int *) calloc((src->len - 1), sizeof(int));
+	if (src->len > 1)
+		src_temp = (int *) calloc((src->len - 1), sizeof(int));
 	dst_temp = (int *) calloc((dst->len + 1), sizeof(int));
 	dst_temp[0] = src->stack[0];
 	i = 1;

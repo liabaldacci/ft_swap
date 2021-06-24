@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   large.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 19:36:44 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/22 20:55:47 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/25 00:29:50 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,16 @@ int		find_max_idx(t_stack *stack)
 
 int		find_threshold(t_stack *a, int chunks)
 {
-	int	min;
-	int	max;
 	int	thresh;
+	// int i;
 
-	min = find_min(a);
-	max = find_max(a);
-	if (min < 0 && max > 0)
-		thresh = (max - ((max - min) / chunks) + 1);
-	else
-		thresh = ((max - min) / chunks) + 1;
+	a->min = find_min(a);
+	a->max = find_max(a);
+	// if (min < 0 && max > 0)
+	// 	thresh = (min + ((max - min) / chunks) + 1);
+	// else
+	// 	thresh = ((max - min) / chunks) + 1;
+	thresh = ((a->max - a->min) / chunks) + 1;
 	return (thresh);	
 }
 
@@ -140,6 +140,8 @@ int		split_chunks(t_stack *a, t_stack *b, int chunks)
 
 	i = 1;
 	thresh = find_threshold(a, chunks);
+	if (a->min < 0 && a->max > 0)
+		thresh = a->min + thresh;
 	thresh_chunk = thresh;
 	while (i < chunks) //leave out last chunk
 	{
@@ -200,12 +202,12 @@ void	single_chunk_positive(t_stack *a, t_stack *b, int min)
 	int	rb_num;
 
 	rb_num = 0;
-	while (b->stack[0] > min | b->stack[b->len - 1] > min)
+	while ((b->len > 0) && (b->stack[0] >= min | b->stack[b->len - 1] >= min))
 	{
 		max_idx = find_max_idx(b); //find index of largest number
 		if (max_idx == 1) //if the largest number is on the second position do SB instead of RB
 			sx(b);
-		else if (max_idx >= (b->len - rb_num - 1))
+		else if (max_idx >= (b->len - rb_num - 1) && (max_idx != 0))
 		//if the largest number is one of the last in the stack after doing RB
 		{
 			j = 0;
@@ -280,10 +282,10 @@ void	return_single_chunk(t_stack *a, t_stack *b, int min)
 	int	rb_num;
 
 	rb_num = 0;
-	if (min >= 0)
-		single_chunk_positive(a, b, min);
-	else
-		single_chunk_negative(a, b, min);
+	// if (min >= 0)
+	single_chunk_positive(a, b, min);
+	// else
+	// 	single_chunk_negative(a, b, min);
 	// while (b->stack[0] > min | b->stack[b->len - 1] > min)
 	// {
 	// 	max_idx = find_max_idx(b); //find index of largest number
@@ -325,14 +327,19 @@ void	return_all_chunks(t_stack *a, t_stack *b, int chunks, int thresh)
 
 	i = chunks - 1;
 	num_RB = 0;
-	if (thresh < 0)
-		thresh_chunk = thresh + ft_abs(thresh * i);
-	else
-		thresh_chunk = ft_abs(thresh * i);
+	// if (thresh < 0)
+	// 	thresh_chunk = thresh + ft_abs(thresh * i);
+	// else
+	// 	thresh_chunk = ft_abs(thresh * i);
 	while (i > 0)
 	{
-		thresh_chunk = thresh_chunk - ft_abs(thresh);
-		return_single_chunk(a, b, thresh_chunk);
+		thresh_chunk = a->min + ft_abs(thresh * i);
+		if (i == 1)
+		{
+			return_single_chunk(a, b, a->min);
+		}
+		else
+			return_single_chunk(a, b, thresh_chunk);
 		i--;
 	}	
 }

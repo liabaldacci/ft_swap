@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 21:24:09 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/18 19:06:39 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/25 00:48:43 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ typedef struct  s_stack
     int			len;
 	int			*stack;
 	int			id; // 1 pra a, 2 pra b
+	int			min;
+	int			max;
+	int			pb_nbr;
 }               t_stack;
 
 int     main(int argc, char **argv);
@@ -42,7 +45,8 @@ int	sort(t_stack *a, t_stack *b);
 int		sort_large(t_stack *a, t_stack *b);
 int	sort_five(t_stack *a, t_stack *b);
 int	sort_three(t_stack *a);
-
+char	**ft_split(char const *s, char c);
+void	*ft_calloc(size_t count, size_t size);
 
 
 

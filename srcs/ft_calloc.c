@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/01 19:45:25 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/25 00:47:01 by nfranco-         ###   ########.fr       */
+/*   Created: 2021/06/24 21:52:18 by nfranco-          #+#    #+#             */
+/*   Updated: 2021/06/24 21:53:23 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int	error(t_stack *a, t_stack *b)
+void	*ft_calloc(size_t count, size_t size)
 {
-	write(1, "Error.\n", 7);
-	if (a->stack)
-		free(a->stack);
-	if (b->stack)
-		free(b->stack);
-	exit (0);
+	void	*ptr2;
+	size_t	i;
+	char	*ptr1;
+
+	i = 0;
+	ptr2 = malloc(count * size);
+	ptr1 = ptr2;
+	if (ptr1 == NULL)
+		return (NULL);
+	while (i < (count * size))
+	{
+		*ptr1 = '\0';
+		ptr1++;
+		i++;
+	}
+	return (ptr2);
 }

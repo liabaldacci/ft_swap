@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_five.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 00:32:21 by nfranco-          #+#    #+#             */
-/*   Updated: 2021/06/18 19:08:04 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/24 21:25:51 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_one_on_top(t_stack *a, t_stack *b)
 		if (b->stack[0] < b->stack[1])
 			sx(b);
 		px(b, a);
-		if (b->stack[0] < a->stack[0])
-			sx(a);
+		// if (b->stack[0] < a->stack[0])
+		// 	sx(a);
 		px(b, a);
 	}
 	else
