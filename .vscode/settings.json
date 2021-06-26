@@ -1,7 +1,8 @@
 {
     "files.associations": {
-        "cmath": "c",
-        "*.tcc": "c",
-        "cstdlib": "c"
-    }
+		"cmath": "c",
+		"*.tcc": "c",
+		"cstdlib": "c",
+		"limits": "c"
+	}
 }

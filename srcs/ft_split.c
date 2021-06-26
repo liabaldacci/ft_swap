@@ -6,13 +6,13 @@
 /*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 21:51:08 by nfranco-          #+#    #+#             */
-/*   Updated: 2021/06/24 21:53:36 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/26 00:24:25 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-static int		ft_nelements(char const *s, char c)
+static int		ft_nelements(char const *s, char c, t_stack *a)
 {
 	int i;
 	int j;
@@ -25,6 +25,7 @@ static int		ft_nelements(char const *s, char c)
 			j++;
 		i++;
 	}
+	a->len = j;
 	return (j);
 }
 
@@ -38,7 +39,7 @@ static int		ft_strlen_char(char const *s, char c)
 	return (i);
 }
 
-static char		**ft_callocelements(char const *s, char c)
+static char		**ft_callocelements(char const *s, char c, t_stack *a)
 {
 	char	**new;
 	int		i;
@@ -47,9 +48,9 @@ static char		**ft_callocelements(char const *s, char c)
 
 	i = 0;
 	j = 0;
-	if (!(new = (char **)ft_calloc((ft_nelements(s, c) + 1), sizeof(char *))))
+	if (!(new = (char **)ft_calloc((ft_nelements(s, c, a) + 1), sizeof(char *))))
 		return (NULL);
-	if (ft_nelements(s, c) == 0)
+	if (ft_nelements(s, c, a) == 0)
 		return (new);
 	while (s[i])
 	{
@@ -67,12 +68,12 @@ static char		**ft_callocelements(char const *s, char c)
 	return (new);
 }
 
-char			**ft_split(char const *s, char c)
+char			**ft_split(char const *s, char c, t_stack *a)
 {
 	char	**new;
 
 	if (!s)
 		return (NULL);
-	new = ft_callocelements(s, c);
+	new = ft_callocelements(s, c, a);
 	return (new);
 }

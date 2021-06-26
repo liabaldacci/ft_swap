@@ -6,7 +6,7 @@
 /*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 19:36:44 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/25 00:29:50 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/25 23:51:33 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,46 +277,10 @@ void	single_chunk_negative(t_stack *a, t_stack *b, int min)
 
 void	return_single_chunk(t_stack *a, t_stack *b, int min)
 {
-	// int	j;
-	// int	max_idx;
 	int	rb_num;
 
 	rb_num = 0;
-	// if (min >= 0)
 	single_chunk_positive(a, b, min);
-	// else
-	// 	single_chunk_negative(a, b, min);
-	// while (b->stack[0] > min | b->stack[b->len - 1] > min)
-	// {
-	// 	max_idx = find_max_idx(b); //find index of largest number
-	// 	if (max_idx == 1) //if the largest number is on the second position do SB instead of RB
-	// 		sx(b);
-	// 	else if (max_idx >= (b->len - rb_num - 1)) 
-	// 	//if the largest number is one of the last in the stack after doing RB
-	// 	{
-	// 		j = 0;
-	// 		while (j < (b->len - max_idx)) //DO enough RRBs to send the largest number back to the first position
-	// 		{
-	// 			rrx(b);
-	// 			rb_num--; //number of times RB was used is decreased
-	// 			j++;
-	// 		}
-	// 	}
-	// 	else
-	// 	// if the largest number is not in the second position nor in the end of the stack,
-	// 	//	do RB until it is in the first position
-	// 	{
-	// 		j = 0;
-	// 		while (j < max_idx)
-	// 		{
-	// 			rx(b);
-	// 			rb_num++;
-	// 			j++;
-	// 		}
-	// 	}
-	// 	//after all that the largest number is in the first position so now just needs to be sent ot stack A
-	// 	px(b, a);
-	// }
 }
 
 void	return_all_chunks(t_stack *a, t_stack *b, int chunks, int thresh)
@@ -327,10 +291,6 @@ void	return_all_chunks(t_stack *a, t_stack *b, int chunks, int thresh)
 
 	i = chunks - 1;
 	num_RB = 0;
-	// if (thresh < 0)
-	// 	thresh_chunk = thresh + ft_abs(thresh * i);
-	// else
-	// 	thresh_chunk = ft_abs(thresh * i);
 	while (i > 0)
 	{
 		thresh_chunk = a->min + ft_abs(thresh * i);

@@ -6,7 +6,7 @@
 /*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 19:45:25 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/25 00:47:01 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/26 01:46:50 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	error(t_stack *a, t_stack *b)
 {
-	write(1, "Error.\n", 7);
+	write(2, "Error.\n", 7);
 	if (a->stack)
 		free(a->stack);
 	if (b->stack)
