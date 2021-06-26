@@ -30,7 +30,7 @@ if (grep { $_ eq '--checker' } @ARGV)
     my ($out, $err);
     run3 ['./checker', @numbers], \$in, \$out, \$err;
     print $out;
-	# print "ARG: @numbers\n";
+	print "ARG: @numbers\n";
 }
 elsif (grep { $_ eq '--count' } @ARGV)
 {

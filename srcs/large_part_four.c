@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   large_part_four.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/31 21:14:04 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/26 03:00:49 by nfranco-         ###   ########.fr       */
+/*   Created: 2021/06/26 05:15:44 by nfranco-          #+#    #+#             */
+/*   Updated: 2021/06/26 05:15:49 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int	init(t_stack *a, t_stack *b)
+int	ft_abs(int i)
 {
-	a->stack = NULL;
-	a->len = 0;
-	a->id = 1;
-	a->min = 0;
-	a->max = 0;
-	b->stack = NULL;
-	b->len = 0;
-	b->id = 2;
-	return (0);
+	if (i > 0)
+		return (i);
+	else
+		return (i * -1);
+}
+
+int	decide_chunks(int len)
+{
+	if (len < 25)
+		return (2);
+	else if (len < 50)
+		return (4);
+	else if (len < 100)
+		return (8);
+	else if (len < 250)
+		return (10);
+	else if (len < 500)
+		return (12);
+	else
+		return (15);
 }

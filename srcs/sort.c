@@ -6,7 +6,7 @@
 /*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:11:20 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/26 01:46:10 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/26 03:06:53 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	sort_three(t_stack *a)
 
 int	ft_need_sort(t_stack *a)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < a->len - 1)

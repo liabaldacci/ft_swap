@@ -1,0 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations_cont.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/26 03:15:54 by nfranco-          #+#    #+#             */
+/*   Updated: 2021/06/26 03:16:29 by nfranco-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../push_swap.h"
+
+void	rx(t_stack *s)
+{
+	int	temp;
+	int	i;
+
+	if (s->len <= 1)
+		return ;
+	temp = s->stack[0];
+	i = 0;
+	while (i < s->len - 1)
+	{
+		s->stack[i] = s->stack[i + 1];
+		i++;
+	}
+	s->stack[i] = temp;
+	if (s->id == 1)
+		write(1, "ra\n", 3);
+	else
+		write(1, "rb\n", 3);
+}
+
+void	rr(t_stack *one, t_stack *two)
+{
+	rx(one);
+	rx(two);
+	write(1, "rr\n", 3);
+}
+
+void	rrx(t_stack *s)
+{
+	int	temp;
+	int	i;
+
+	if (s->len <= 1)
+		return ;
+	temp = s->stack[s->len - 1];
+	i = s->len - 1;
+	while (i > 0)
+	{
+		s->stack[i] = s->stack[i - 1];
+		i--;
+	}
+	s->stack[0] = temp;
+	if (s->id == 1)
+		write(1, "rra\n", 4);
+	else
+		write(1, "rrb\n", 4);
+}
+
+void	rrr(t_stack *one, t_stack *two)
+{
+	rrx(one);
+	rrx(two);
+	write(1, "rrr\n", 4);
+}

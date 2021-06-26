@@ -6,114 +6,11 @@
 /*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 19:36:44 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/25 23:51:33 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/26 05:18:20 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
-int		ft_abs(int i)
-{
-	if (i > 0)
-		return (i);
-	else
-		return (i * -1);
-}
-
-int		decide_chunks(int len)
-{
-	if (len < 25)
-		return (2);
-	else if (len < 50)
-		return (4);
-	else if (len < 100)
-		return (8);
-	else if (len < 250)
-		return (10);
-	else if (len < 500)
-		return (12);
-	else
-		return (15);
-}
-
-int		find_min(t_stack *stack)
-{
-	int	i;
-	int	min;
-
-	i = 0;
-	min = stack->stack[0];
-	while (i < stack->len)
-	{
-		if (stack->stack[i] < min)
-			min = stack->stack[i];
-		i++;
-	}
-	return (min);
-}
-
-int		find_min_idx(t_stack *stack)
-{
-	int	i;
-	int	min_idx;
-
-	i = 0;
-	min_idx = 0;
-	while (i < stack->len)
-	{
-		if (stack->stack[i] < stack->stack[min_idx])
-			min_idx = i;
-		i++;
-	}
-	return (min_idx);
-}
-
-int		find_max(t_stack *stack)
-{
-	int	i;
-	int	max;
-
-	i = 0;
-	max = stack->stack[0];
-	while (i < stack->len)
-	{
-		if (stack->stack[i] > max)
-			max = stack->stack[i];
-		i++;
-	}
-	return (max);
-}
-
-int		find_max_idx(t_stack *stack)
-{
-	int	i;
-	int	max_idx;
-
-	i = 0;
-	max_idx = 0;
-	while (i < stack->len)
-	{
-		if (stack->stack[i] > stack->stack[max_idx])
-			max_idx = i;
-		i++;
-	}
-	return (max_idx);
-}
-
-int		find_threshold(t_stack *a, int chunks)
-{
-	int	thresh;
-	// int i;
-
-	a->min = find_min(a);
-	a->max = find_max(a);
-	// if (min < 0 && max > 0)
-	// 	thresh = (min + ((max - min) / chunks) + 1);
-	// else
-	// 	thresh = ((max - min) / chunks) + 1;
-	thresh = ((a->max - a->min) / chunks) + 1;
-	return (thresh);	
-}
 
 void	send_chunk(t_stack *a, t_stack *b, int thresh)
 {
@@ -125,186 +22,61 @@ void	send_chunk(t_stack *a, t_stack *b, int thresh)
 	while (i < len)
 	{
 		if (a->stack[0] <= thresh)
-			px(a, b); //PB
+			px(a, b);
 		else
 			rx(a);
 		i++;
 	}
 }
 
-int		split_chunks(t_stack *a, t_stack *b, int chunks)
+int	ft_single_chunk_rrx(t_stack *b, int max_idx, int rb_num)
 {
 	int	i;
-	int	thresh;
-	int	thresh_chunk;
 
-	i = 1;
-	thresh = find_threshold(a, chunks);
-	if (a->min < 0 && a->max > 0)
-		thresh = a->min + thresh;
-	thresh_chunk = thresh;
-	while (i < chunks) //leave out last chunk
+	i = 0;
+	while (i < (b->len - max_idx))
 	{
-		send_chunk(a, b, thresh_chunk);
-		thresh_chunk = thresh_chunk + ft_abs(thresh);
+		rrx(b);
+		rb_num--;
 		i++;
 	}
-	return (thresh);
+	return (rb_num);
 }
 
-void	send_smallest(t_stack *a, t_stack *b)
+int	ft_single_chunk_rx(t_stack *b, int max_idx, int rb_num)
 {
-	int	min;
 	int	i;
 
-	min = find_min_idx(a);
 	i = 0;
-	if (min <= a->len / 2)
+	while (i < max_idx)
 	{
-		while (i < min)
-		{
-			rx(a);
-			i++;
-		}
-		px(a, b);
+		rx(b);
+		rb_num++;
+		i++;
 	}
-	else
-	{
-		while (i < a->len - min)
-		{
-			rrx(a);
-			i++;
-		}
-		px(a, b);
-	}
+	return (rb_num);
 }
 
-void	sort_last_chunk(t_stack *a, t_stack *b)
+void	single_chunk(t_stack *a, t_stack *b, int min)
 {
-	int	len;
-	int	i;
-
-	len = a->len;
-	i = 0;
-	while (i < len - 1)
-	{
-		send_smallest(a, b);
-		i++;		
-	}
-	while (i-- > 0)
-		px(b, a);
-}
-
-void	single_chunk_positive(t_stack *a, t_stack *b, int min)
-{
-	int	j;
 	int	max_idx;
 	int	rb_num;
 
 	rb_num = 0;
 	while ((b->len > 0) && (b->stack[0] >= min | b->stack[b->len - 1] >= min))
 	{
-		max_idx = find_max_idx(b); //find index of largest number
-		if (max_idx == 1) //if the largest number is on the second position do SB instead of RB
+		max_idx = find_max_idx(b);
+		if (max_idx == 1)
 			sx(b);
 		else if (max_idx >= (b->len - rb_num - 1) && (max_idx != 0))
-		//if the largest number is one of the last in the stack after doing RB
-		{
-			j = 0;
-			while (j < (b->len - max_idx)) //DO enough RRBs to send the largest number back to the first position
-			{
-				rrx(b);
-				rb_num--; //number of times RB was used is decreased
-				j++;
-			}
-		}
+			rb_num = ft_single_chunk_rrx(b, max_idx, rb_num);
 		else
-		// if the largest number is not in the second position nor in the end of the stack,
-		//	do RB until it is in the first position
-		{
-			j = 0;
-			while (j < max_idx)
-			{
-				rx(b);
-				rb_num++;
-				j++;
-			}
-		}
-		//after all that the largest number is in the first position so now just needs to be sent ot stack A
+			rb_num = ft_single_chunk_rx(b, max_idx, rb_num);
 		px(b, a);
 	}
 }
 
-void	single_chunk_negative(t_stack *a, t_stack *b, int min)
-{
-	int	j;
-	int	max_idx;
-	int	rb_num;
-
-	rb_num = 0;
-	while (b->stack[0] < min | b->stack[b->len - 1] < min)
-	{
-		max_idx = find_max_idx(b); //find index of largest number
-		if (max_idx == 1) //if the largest number is on the second position do SB instead of RB
-			sx(b);
-		else if (max_idx >= (b->len - rb_num - 1)) 
-		//if the largest number is one of the last in the stack after doing RB
-		{
-			j = 0;
-			while (j < (b->len - max_idx)) //DO enough RRBs to send the largest number back to the first position
-			{
-				rrx(b);
-				rb_num--; //number of times RB was used is decreased
-				j++;
-			}
-		}
-		else
-		// if the largest number is not in the second position nor in the end of the stack,
-		//	do RB until it is in the first position
-		{
-			j = 0;
-			while (j < max_idx)
-			{
-				rx(b);
-				rb_num++;
-				j++;
-			}
-		}
-		//after all that the largest number is in the first position so now just needs to be sent ot stack A
-		px(b, a);
-	}
-}
-
-void	return_single_chunk(t_stack *a, t_stack *b, int min)
-{
-	int	rb_num;
-
-	rb_num = 0;
-	single_chunk_positive(a, b, min);
-}
-
-void	return_all_chunks(t_stack *a, t_stack *b, int chunks, int thresh)
-{
-	int	i;
-	int	num_RB;
-	int	thresh_chunk;
-
-	i = chunks - 1;
-	num_RB = 0;
-	while (i > 0)
-	{
-		thresh_chunk = a->min + ft_abs(thresh * i);
-		if (i == 1)
-		{
-			return_single_chunk(a, b, a->min);
-		}
-		else
-			return_single_chunk(a, b, thresh_chunk);
-		i--;
-	}	
-}
-
-int		sort_large(t_stack *a, t_stack *b)
+int	sort_large(t_stack *a, t_stack *b)
 {
 	int	chunks;
 	int	thresh;

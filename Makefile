@@ -9,7 +9,10 @@ FLAGS_CC =	-Wall -Wextra -Werror -I ./$(NAME).h
 SRCS =		$(SRC_DIR)/push_swap.c $(SRC_DIR)/ft_isdigit.c $(SRC_DIR)/ft_atoi.c \
 			$(SRC_DIR)/operations.c $(SRC_DIR)/init.c $(SRC_DIR)/error.c \
 			$(SRC_DIR)/sort.c $(SRC_DIR)/large.c $(SRC_DIR)/sort_five.c \
-			$(SRC_DIR)/ft_split.c $(SRC_DIR)/ft_calloc.c
+			$(SRC_DIR)/ft_split.c $(SRC_DIR)/ft_calloc.c \
+			$(SRC_DIR)/operations_cont.c $(SRC_DIR)/large_part_two.c \
+			$(SRC_DIR)/large_part_three.c $(SRC_DIR)/large_part_four.c \
+			$(SRC_DIR)/check.c
 
 OBJS =		$(patsubst $(SRC_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS)) #subst in directory
 

@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:05:15 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/07 22:25:09 by gadoglio         ###   ########.fr       */
+/*   Updated: 2021/06/26 02:57:04 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void		atoi_error(void)
+void	atoi_error(void)
 {
 	write(2, "Error.\n", 7);
 	exit(0);
 }
 
-long		ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	int		i;
 	long	nbr;

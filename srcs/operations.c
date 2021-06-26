@@ -6,7 +6,7 @@
 /*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 20:47:52 by gadoglio          #+#    #+#             */
-/*   Updated: 2021/06/25 23:53:10 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/26 04:52:46 by nfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,24 @@ void	p_print(t_stack *src)
 		write(1, "pa\n", 3);
 }
 
+void	ft_free_px(t_stack *src, t_stack *dst, int *src_temp, int *dst_temp)
+{
+	free(dst->stack);
+	free(src->stack);
+	dst->stack = NULL;
+	src->stack = NULL;
+	src->stack = src_temp;
+	dst->stack = dst_temp;
+	src->len--;
+	dst->len++;
+}
+
 void	px(t_stack *src, t_stack *dst)
 {
 	int	*src_temp;
 	int	*dst_temp;
-	int i;
-	
+	int	i;
+
 	if (src->len == 0)
 		return ;
 	src_temp = NULL;
@@ -62,75 +74,9 @@ void	px(t_stack *src, t_stack *dst)
 		dst_temp[i] = dst->stack[i - 1];
 		i++;
 	}
-	i = 0;
-	while (i < src->len - 1)
-	{
+	i = -1;
+	while (++i < src->len - 1)
 		src_temp[i] = src->stack[i + 1];
-		i++;
-	}
-	free(dst->stack);
-	free(src->stack);
-	dst->stack = NULL;
-	src->stack = NULL;
-	src->stack = src_temp;
-	dst->stack = dst_temp;
-	src->len--;
-	dst->len++;
+	ft_free_px(src, dst, src_temp, dst_temp);
 	p_print(src);
-}
-
-void	rx(t_stack *s)
-{
-	int	temp;
-	int	i;
-
-	if (s->len <= 1)
-		return ;
-	temp = s->stack[0];
-	i = 0;
-	while (i < s->len - 1)
-	{
-		s->stack[i] = s->stack[i + 1];
-		i++;
-	}
-	s->stack[i] = temp;
-	if (s->id == 1)
-		write(1, "ra\n", 3);
-	else
-		write(1, "rb\n", 3);
-}
-
-void	rr(t_stack *one, t_stack *two)
-{
-	rx(one);
-	rx(two);
-	write(1, "rr\n", 3);
-}
-
-void	rrx(t_stack *s)
-{
-	int	temp;
-	int	i;
-
-	if (s->len <= 1)
-		return ;
-	temp = s->stack[s->len - 1];
-	i = s->len - 1;
-	while (i > 0)
-	{
-		s->stack[i] = s->stack[i - 1];
-		i--;
-	}
-	s->stack[0] = temp;
-	if (s->id == 1)
-		write(1, "rra\n", 4);
-	else
-		write(1, "rrb\n", 4);
-}
-
-void	rrr(t_stack *one, t_stack *two)
-{
-	rrx(one);
-	rrx(two);
-	write(1, "rrr\n", 4);
 }
