@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfranco- <nfranco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gadoglio <gadoglio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 05:32:42 by nfranco-          #+#    #+#             */
-/*   Updated: 2021/06/26 05:33:02 by nfranco-         ###   ########.fr       */
+/*   Updated: 2021/06/28 20:50:21 by gadoglio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	is_valid_number(char *s)
 {
+	int	i;
+
+	i = 0;
 	if (*s == '-')
 		s++;
 	while (*s)
@@ -21,7 +24,10 @@ int	is_valid_number(char *s)
 		if (ft_isdigit(*s) == 0)
 			return (0);
 		s++;
+		i++;
 	}
+	if (i > 11)
+		return (0);
 	return (1);
 }
 
